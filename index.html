@@ -8,16 +8,47 @@
 
         <link rel="stylesheet" href="style.css"/>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alata&family=Big+Shoulders+Display:wght@700&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@200;400&family=Josefin+Sans:wght@300&family=Lexend+Deca:wght@200;300&family=Manrope:wght@700;800&family=Montserrat:wght@500&family=Open+Sans:wght@700&family=Outfit:wght@700&family=Overpass&family=Poppins:wght@600&family=Red+Hat+Display:wght@700&family=Roboto:wght@300&family=Space+Grotesk:wght@500&family=Titillium+Web&display=swap" rel="stylesheet">
+
     </head>
 
     <body>
 
         <div id="project_main">
+
             <header id="header_container">
                 <div id="img_logo">
                     <img id="logo_content" src="image/logo.png" alt="">
                 </div>
             </header>
+
+            <div id="created_annotation">
+                <input type="text" name="annotation" id="new_annotation" placeholder="Adicione uma nova tarefa"/>
+                <button id="button_create">Criar <img id="icon_botton" src="image/plus.png"/></button>
+            </div>
+
+            <section class="section_container">
+
+                <div id="information_quantity">
+                    <div>
+                        <p id="created_tasks">Tarefas criadas <span id="number_created">0</span></p>
+                    </div>
+                    <div>
+                        <p id="completed_content">Concluídas</p>
+                    </div>
+                </div>
+
+                <div id="tasks_register">
+                    <img id="img_clipboard" src="image/Clipboard.png"/>
+                    <div class="register_empty">
+                        <p id="not_registered">Você ainda não tem tarefas cadastradas</p>
+                        <p>Crie tarefas e organize seus itens a fazer</p>
+                    </div>
+                </div>
+
+            </section>
 
         </div>
 

@@ -28,8 +28,13 @@ function tarefasAdicionadas() {
     // adiciona uma tarefa na lista
     taskList.innerHTML = '';
     for (let tarefa in listaDeTarefas) {
-        taskList.innerHTML += `                
-        <li class="item">${listaDeTarefas[tarefa]}</li>
+        taskList.innerHTML += `
+            <div class="Teste">
+                <div id="teste">
+                    <input type="checkbox" name="checkConcluded" id="check_concluded">
+                    <li class="item">${listaDeTarefas[tarefa]}</li>
+                </div>
+            </div>
         `
     }
 }

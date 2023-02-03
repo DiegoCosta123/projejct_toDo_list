@@ -75,7 +75,9 @@
     font-weight: bold;
     margin-left: 5px;
     font-family: 'Inter', sans-serif;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #icon_botton {
@@ -151,14 +153,25 @@
     font-weight: bold;
 }
 
+.item {
+    color: white;
+}
 
-@media screen and (max-width: 469px) {
+#task-list {    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+@media screen and (max-width: 572px) {
 
     #button_create {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 45px;
+        margin-left: 50px;
         margin-top: 20px;
     }
 

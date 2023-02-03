@@ -26,26 +26,23 @@
 
             <div id="created_annotation">
                 <input type="text" name="annotation" id="new_annotation" placeholder="Adicione uma nova tarefa"/>
-                <button id="button_create">Criar <img id="icon_botton" src="image/plus.png"/></button>
+                <button id="button_create">Criar <img id="icon_botton" src="image/plus.png"></button>
             </div>
 
             <section class="section_container">
 
                 <div id="information_quantity">
                     <div>
-                        <p id="created_tasks">Tarefas criadas <span class="number_created">0</span></p>
+                        <p id="created_tasks">Tarefas criadas <span id="number_of_tasks" class="number_created">0</span></p>
                     </div>
                     <div>
                         <p id="completed_content">Concluídas <span class="number_created">0</span></p>
                     </div>
                 </div>
 
+                
                 <div id="tasks_register">
-                    <img id="img_clipboard" src="image/Clipboard.png"/>
-                    <div class="register_empty">
-                        <p id="not_registered">Você ainda não tem tarefas cadastradas</p>
-                        <p>Crie tarefas e organize seus itens a fazer</p>
-                    </div>
+                    <ul id="task-list"></ul>                 
                 </div>
 
             </section>
@@ -56,3 +53,7 @@
     </body>
 </html>
 
+
+
+
+<!-- onclick="createdButton()" -->

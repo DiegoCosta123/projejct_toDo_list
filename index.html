@@ -26,7 +26,7 @@
 
             <div id="created_annotation">
                 <input type="text" name="annotation" id="new_annotation" placeholder="Adicione uma nova tarefa"/>
-                <button id="button_create">Criar <img id="icon_botton" src="image/plus.png"></button>
+                <button onclick="adicionarTarefa()" id="button_create">Criar <img id="icon_botton" src="image/plus.png"></button>
             </div>
 
             <section class="section_container">
@@ -39,7 +39,6 @@
                         <p id="completed_content">Concluídas <span class="number_created">0</span></p>
                     </div>
                 </div>
-
                 
                 <div id="tasks_register">
                     <ul id="task-list"></ul>

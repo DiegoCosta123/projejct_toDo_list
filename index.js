@@ -4,6 +4,7 @@ const taskList = document.getElementById("task-list");
 const tarefasCriadas = document.getElementById("number_of_tasks");
 const tasksRegister = document.getElementById("tasks_register");
 const iconRemove = document.getElementById("icon_trash");
+const arrayList = document.getElementsByClassName("annotation_field_container");
 
 
 let listaDeTarefas = [];
@@ -89,17 +90,15 @@ function adicionarTarefa() {
 }
 
 // Lista for feita e clicar checkout
-function tarefaFeita() {
-
-    const idsDaListaDeTarefas = listaDeTarefas;
-    for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
-        if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
-            idsDaListaDeTarefas.splice(i, 1);
-            break;
-        }
-    }
-    // conta a quantidade na lista
-    atualizarListaDeTarefas();
-    tarefasAdicionadas();
-}
+// function tarefaFeita() {
+//     for (let i = 0; i < listaDeTarefas.length; i++) {
+//         if ([i].id == idQueFoiClicado) {
+//             idsDaListaDeTarefas.(i, 1);
+//             break;
+//         }
+//     }
+//     // conta a quantidade na lista
+//     atualizarListaDeTarefas();
+//     tarefasAdicionadas();
+// }
 

@@ -175,22 +175,51 @@
     font-family: 'Inter', sans-serif;
     position: relative;
     overflow-y: overlay;
-    
 }
 
-#annotation_field {
+.annotation_field {
     display: inline-flex;
     gap: 5px;
     text-align: start;
     position: relative;
 }
 
-#check_concluded {
+.check_concluded {
     width: 25px;
     height: 25px;
+    background-color: #262626;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 3px solid #4EA8DE;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
 }
 
-#icon_trash {
+.check_concluded:checked {
+    position: relative;
+    background-color: #5E60CE;
+    border: 2px solid #5E60CE;
+}
+
+.check_task_icon_container {
+    position: relative;
+}
+.check_task_icon_container img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.check_vetor:checked {
+    position: absolute;
+    display: flex;
+}
+
+.icon_trash {
     position: absolute;
     right: 0;
     cursor: pointer;
@@ -202,6 +231,11 @@
     position: absolute;
     padding: 0 40px;
     padding-bottom: 10px;
+}
+
+.checked {
+    text-decoration: line-through;
+    color: #808080;
 }
 
 

@@ -43,8 +43,7 @@ function tarefasAdicionadas() {
             <div class="annotation_field_container">
                 <div class="id${listaDeTarefas[tarefa].id} annotation_field">
                     <div class="check_task_icon_container">
-                        <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>
-                       
+                        <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>                       
                     </div>
                     <div class="item_container">
                         <p class="item">${listaDeTarefas[tarefa].value}</p>
@@ -89,7 +88,6 @@ function removerAnnotation(idQueFoiClicado) {
     tarefasAdicionadas();
     criarListaVazia();
     atualizarListaDeTarefasFeitas();
-
 }
 
 function adicionarTarefa() {
@@ -143,34 +141,4 @@ function tarefaFeita(idQueFoiClicado) {
 
     atualizarListaDeTarefasFeitas();
 }
-
-
-
-// Original
-// function tarefaFeita(idQueFoiClicado) {
-//     const idsDaListaDeTarefas = listaDeTarefas;
-//     let isDone = document.querySelector(`.id${idQueFoiClicado} .check_concluded`);
-//     const checked = document.querySelector(`.id${idQueFoiClicado} .item`);
-//     let checkIcon = document.createElement("img");
-
-//     for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
-
-//         if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
-//             if (isDone.checked) {
-//                 checked.classList.add("checked");
-//                 checkIcon.src = "image/vector.png"
-//                 checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
-//                 document.querySelector('.check_task_icon_container').append(checkIcon);
-//                 idsDaListaDeTarefas[i].isDone = true;
-//             }
-//             else {
-//                 checked.classList.remove("checked");
-//                 document.querySelector(".check_vetor").remove();
-
-//                 idsDaListaDeTarefas[i].isDone = false;
-//             }
-//         }
-//     }
-//     atualizarListaDeTarefasFeitas();
-// }
 

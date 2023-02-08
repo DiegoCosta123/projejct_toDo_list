@@ -42,8 +42,7 @@
     margin-bottom: 20px;
 }
 
-.number_created {
-    width: 30px;
+.number_created {    
     height: 21px;
     background-color: #333333;
     border-radius: 999px;
@@ -206,17 +205,17 @@
 .check_task_icon_container {
     position: relative;
 }
-.check_task_icon_container img {
+.check_vetor {
     position: absolute;
     left: 0;
+    right: 0;
     top: 0;
-    width: 30px;
-    height: 30px;
-}
-
-.check_vetor:checked {
-    position: absolute;
-    display: flex;
+    bottom: 0;
+    margin: auto;
+    width: 11px;
+    height: 11px;
+    text-align: center;
+    outline: none;
 }
 
 .icon_trash {

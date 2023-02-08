@@ -9,7 +9,6 @@ const iconRemove = document.getElementById("icon_trash");
 const arrayList = document.getElementsByClassName("annotation_field_container");
 const isdone = document.getElementById("check_concluded");
 
-
 let listaDeTarefas = [];
 
 
@@ -27,7 +26,6 @@ function criarListaVazia() {
             </div>
         `
     }
-
 }
 
 criarListaVazia();
@@ -46,7 +44,7 @@ function tarefasAdicionadas() {
                 <div class="id${listaDeTarefas[tarefa].id} annotation_field">
                     <div class="check_task_icon_container">
                         <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>
-                        <img class="check_vetor" src="image/vector.png"/>                    
+                       
                     </div>
                     <div class="item_container">
                         <p class="item">${listaDeTarefas[tarefa].value}</p>
@@ -73,7 +71,7 @@ function atualizarListaDeTarefasFeitas() {
             isChecked++;
         }
     }
-    tarefasFeitas.textContent = isChecked;
+    tarefasFeitas.textContent = `${isChecked} de ${listaDeTarefas.length}`;
 }
 
 // Remover da Lista
@@ -116,24 +114,63 @@ function adicionarTarefa() {
 }
 
 // Lista for feita e clicar checkout
+
+//Correção chatOpenAI
 function tarefaFeita(idQueFoiClicado) {
     const idsDaListaDeTarefas = listaDeTarefas;
     let isDone = document.querySelector(`.id${idQueFoiClicado} .check_concluded`);
     const checked = document.querySelector(`.id${idQueFoiClicado} .item`);
+    const checkContainer = document.querySelector(`.id${idQueFoiClicado} .check_task_icon_container`);
 
     for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
-
         if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
             if (isDone.checked) {
                 checked.classList.add("checked");
+                let checkIcon = document.createElement("img");
+                checkIcon.src = "image/vector.png";
+                checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
+                checkContainer.append(checkIcon);
                 idsDaListaDeTarefas[i].isDone = true;
-            } else {
+            }
+            else {
                 checked.classList.remove("checked");
-
+                let checkIcon = document.querySelector(`.check_vetor.id${idQueFoiClicado}`);
+                checkIcon.remove();
                 idsDaListaDeTarefas[i].isDone = false;
             }
         }
     }
+
     atualizarListaDeTarefasFeitas();
 }
+
+
+
+// Original
+// function tarefaFeita(idQueFoiClicado) {
+//     const idsDaListaDeTarefas = listaDeTarefas;
+//     let isDone = document.querySelector(`.id${idQueFoiClicado} .check_concluded`);
+//     const checked = document.querySelector(`.id${idQueFoiClicado} .item`);
+//     let checkIcon = document.createElement("img");
+
+//     for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
+
+//         if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
+//             if (isDone.checked) {
+//                 checked.classList.add("checked");
+//                 checkIcon.src = "image/vector.png"
+//                 checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
+//                 document.querySelector('.check_task_icon_container').append(checkIcon);
+//                 idsDaListaDeTarefas[i].isDone = true;
+//             }
+//             else {
+//                 checked.classList.remove("checked");
+//                 document.querySelector(".check_vetor").remove();
+
+//                 idsDaListaDeTarefas[i].isDone = false;
+//             }
+//         }
+//     }
+//     atualizarListaDeTarefasFeitas();
+// }
 

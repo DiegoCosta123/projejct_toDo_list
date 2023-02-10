@@ -11,6 +11,12 @@ const isdone = document.getElementById("check_concluded");
 
 let listaDeTarefas = [];
 
+createdButton.addEventListener('keypress', e => {
+    if (e.key == 'Enter' && texto.value != '') {
+        tarefaFeita();
+    }
+});
+
 
 function criarListaVazia() {
     if (listaDeTarefas.length == 0) {
@@ -52,7 +58,6 @@ function tarefasAdicionadas() {
                 </div>
             </div>
         `
-        // <img id="checkVetor" src="image/vector.png"/>
     }
 }
 
@@ -73,6 +78,7 @@ function atualizarListaDeTarefasFeitas() {
     tarefasFeitas.textContent = `${isChecked} de ${listaDeTarefas.length}`;
 }
 
+
 // Remover da Lista
 function removerAnnotation(idQueFoiClicado) {
     const idsDaListaDeTarefas = listaDeTarefas;
@@ -88,7 +94,9 @@ function removerAnnotation(idQueFoiClicado) {
     tarefasAdicionadas();
     criarListaVazia();
     atualizarListaDeTarefasFeitas();
+    tarefaFeita();
 }
+
 
 function adicionarTarefa() {
     if (newAnnotation.value == "") {
@@ -112,7 +120,6 @@ function adicionarTarefa() {
 }
 
 // Lista for feita e clicar checkout
-
 //Correção chatOpenAI
 function tarefaFeita(idQueFoiClicado) {
     const idsDaListaDeTarefas = listaDeTarefas;
@@ -133,7 +140,8 @@ function tarefaFeita(idQueFoiClicado) {
             else {
                 checked.classList.remove("checked");
                 let checkIcon = document.querySelector(`.check_vetor.id${idQueFoiClicado}`);
-                checkIcon.remove();
+                checkIcon.remove(`id${idQueFoiClicado}`);
+                idsDaListaDeTarefas.remove(checked, `check_vetor.id${idQueFoiClicado}`);
                 idsDaListaDeTarefas[i].isDone = false;
             }
         }

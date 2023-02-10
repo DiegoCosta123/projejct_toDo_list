@@ -3,6 +3,7 @@ const createdButton = document.getElementById("button_create");
 const taskList = document.getElementById("task-list");
 const tarefasCriadas = document.getElementById("number_of_tasks");
 const tarefasFeitas = document.getElementById("number_of_tasks_completed");
+const textCamp = document.querySelector("item")
 
 const tasksRegister = document.getElementById("tasks_register");
 const iconRemove = document.getElementById("icon_trash");
@@ -11,9 +12,9 @@ const isdone = document.getElementById("check_concluded");
 
 let listaDeTarefas = [];
 
-createdButton.addEventListener('keypress', e => {
-    if (e.key == 'Enter' && texto.value != '') {
-        tarefaFeita();
+newAnnotation.addEventListener('keypress', function(textCamp) {
+    if (textCamp.key === 'Enter' && newAnnotation.value != '') {
+        adicionarTarefa();
     }
 });
 

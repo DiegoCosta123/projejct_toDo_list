@@ -32,7 +32,7 @@
     margin-top: 70px;
 }
 
-#created_annotation {
+.created_annotation {
     position: absolute;
     top: 174px;
     bottom: 0;
@@ -173,7 +173,6 @@
     border-radius: 7px;
     font-family: 'Inter', sans-serif;
     position: relative;
-    overflow-y: overlay;
 }
 
 .annotation_field {

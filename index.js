@@ -1,26 +1,30 @@
 const newAnnotation = document.getElementById("new_annotation");
+let createdAnnot = document.querySelector("created_annotation");
 const createdButton = document.getElementById("button_create");
 const taskList = document.getElementById("task-list");
 const tarefasCriadas = document.getElementById("number_of_tasks");
 const tarefasFeitas = document.getElementById("number_of_tasks_completed");
-const textCamp = document.querySelector("item")
+const textCamp = document.querySelector("item");
 
 const tasksRegister = document.getElementById("tasks_register");
 const iconRemove = document.getElementById("icon_trash");
 const arrayList = document.getElementsByClassName("annotation_field_container");
 const isdone = document.getElementById("check_concluded");
 
-let listaDeTarefas = [];
+let listaDeTarefas = JSON.parse(localStorage.getItem("todo-list-diego")) || [];
 
-newAnnotation.addEventListener('keypress', function(textCamp) {
-    if (textCamp.key === 'Enter' && newAnnotation.value != '') {
+newAnnotation.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && newAnnotation.value != '') {
         adicionarTarefa();
     }
 });
 
 
 function criarListaVazia() {
-    if (listaDeTarefas.length == 0) {
+    let listFromLocalStorage = localStorage.getItem("todo-list-diego");
+    let listFromLocalStorageParsed = JSON.parse(listFromLocalStorage)
+
+    if (listFromLocalStorageParsed.length == 0) {
         let listaVazia = document.createElement("div");
         listaVazia.className = "list-empty-container"
 
@@ -36,36 +40,43 @@ function criarListaVazia() {
 }
 
 criarListaVazia();
-
 function generateID() {
     const id = Math.random().toString(16).slice(2);
     return id;
 } //vc tinha colocado ,muitos ID, ele substituiu por classe
 
 function tarefasAdicionadas() {
-    // adiciona uma tarefa na lista
+    // Get the list of tasks from local storage
+
+    // Update the list on the page
     taskList.innerHTML = '';
-    for (let tarefa in listaDeTarefas) {
+    if (listaDeTarefas) {
+      for (let tarefa in listaDeTarefas) {
         taskList.innerHTML += `
-            <div class="annotation_field_container">
-                <div class="id${listaDeTarefas[tarefa].id} annotation_field">
-                    <div class="check_task_icon_container">
-                        <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>                       
-                    </div>
-                    <div class="item_container">
-                        <p class="item">${listaDeTarefas[tarefa].value}</p>
-                    </div>
-                    <img onclick="removerAnnotation('${listaDeTarefas[tarefa].id}')" class="icon_trash" src="image/trash.png"/>
-                </div>
+          <div class="annotation_field_container">
+            <div class="id${listaDeTarefas[tarefa].id} annotation_field">
+              <div class="check_task_icon_container">
+                <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>
+              </div>
+              <div class="item_container">
+                <p class="item">${listaDeTarefas[tarefa].value}</p>
+              </div>
+              <img onclick="removerAnnotation('${listaDeTarefas[tarefa].id}')" class="icon_trash" src="image/trash.png"/>
             </div>
-        `
+          </div>
+        `;
+      }
     }
-}
+  }
+
+  tarefasAdicionadas();
 
 // atualiza o numero de tarefas criadas
 function atualizarListaDeTarefas() {
     tarefasCriadas.textContent = listaDeTarefas.length;
+    tarefasFeitas.textContent = listaDeTarefas.length;
 }
+atualizarListaDeTarefas();
 
 // atualiza o numero de tarefas completadas
 function atualizarListaDeTarefasFeitas() {
@@ -79,25 +90,24 @@ function atualizarListaDeTarefasFeitas() {
     tarefasFeitas.textContent = `${isChecked} de ${listaDeTarefas.length}`;
 }
 
+atualizarListaDeTarefas();
+
 
 // Remover da Lista
 function removerAnnotation(idQueFoiClicado) {
-    const idsDaListaDeTarefas = listaDeTarefas;
-
-    for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
-        if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
-            idsDaListaDeTarefas.splice(i, 1);
+    for (let i = 0; i < listaDeTarefas.length; i++) {
+        if (listaDeTarefas[i].id == idQueFoiClicado) {
+            listaDeTarefas.splice(i, 1);
             break;
         }
     }
-    // conta a quantidade na lista
-    atualizarListaDeTarefas();
-    tarefasAdicionadas();
-    criarListaVazia();
-    atualizarListaDeTarefasFeitas();
-    tarefaFeita();
-}
 
+    let listInJSON =  JSON.stringify(listaDeTarefas);
+    localStorage.setItem("todo-list-diego", listInJSON);
+
+    tarefasAdicionadas();
+    atualizarListaDeTarefas();
+}
 
 function adicionarTarefa() {
     if (newAnnotation.value == "") {
@@ -111,14 +121,21 @@ function adicionarTarefa() {
     }
 
     listaDeTarefas.push(data);
+    let listInJSON =  JSON.stringify(listaDeTarefas);
+    localStorage.setItem("todo-list-diego", listInJSON);
+  
+    let listFromLocalStorage = localStorage.getItem("todo-list-diego");
+
+    let listInMemoryParsed = JSON.parse(listFromLocalStorage);
     newAnnotation.value = ""
     tarefasAdicionadas();
     // conta a quantidade na lista
     atualizarListaDeTarefas();
-    if (listaDeTarefas.length == 1) {
+    if (listInMemoryParsed.length == 1) {
         document.querySelector(".list-empty-container").remove();
     }
 }
+
 
 // Lista for feita e clicar checkout
 //Correção chatOpenAI
@@ -150,4 +167,6 @@ function tarefaFeita(idQueFoiClicado) {
 
     atualizarListaDeTarefasFeitas();
 }
+
+tarefaFeita();
 

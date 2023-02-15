@@ -1,5 +1,4 @@
 const newAnnotation = document.getElementById("new_annotation");
-let createdAnnot = document.querySelector("created_annotation");
 const createdButton = document.getElementById("button_create");
 const taskList = document.getElementById("task-list");
 const tarefasCriadas = document.getElementById("number_of_tasks");
@@ -12,6 +11,7 @@ const arrayList = document.getElementsByClassName("annotation_field_container");
 const isdone = document.getElementById("check_concluded");
 
 let listaDeTarefas = JSON.parse(localStorage.getItem("todo-list-diego")) || [];
+
 
 newAnnotation.addEventListener('keypress', function(e) {
     if (e.key === 'Enter' && newAnnotation.value != '') {
@@ -40,10 +40,13 @@ function criarListaVazia() {
 }
 
 criarListaVazia();
+
+
 function generateID() {
     const id = Math.random().toString(16).slice(2);
     return id;
 } //vc tinha colocado ,muitos ID, ele substituiu por classe
+
 
 function tarefasAdicionadas() {
     // Get the list of tasks from local storage
@@ -52,31 +55,34 @@ function tarefasAdicionadas() {
     taskList.innerHTML = '';
     if (listaDeTarefas) {
       for (let tarefa in listaDeTarefas) {
-        taskList.innerHTML += `
-          <div class="annotation_field_container">
-            <div class="id${listaDeTarefas[tarefa].id} annotation_field">
-              <div class="check_task_icon_container">
-                <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>
-              </div>
-              <div class="item_container">
-                <p class="item">${listaDeTarefas[tarefa].value}</p>
-              </div>
-              <img onclick="removerAnnotation('${listaDeTarefas[tarefa].id}')" class="icon_trash" src="image/trash.png"/>
+            taskList.innerHTML += `
+            <div class="annotation_field_container">
+                <div class="id${listaDeTarefas[tarefa].id} annotation_field">
+                <div class="check_task_icon_container">
+                    <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>
+                </div>
+                <div class="item_container">
+                    <p class="item">${listaDeTarefas[tarefa].value}</p>
+                </div>
+                <img onclick="removerAnnotation('${listaDeTarefas[tarefa].id}')" class="icon_trash" src="image/trash.png"/>
+                </div>
             </div>
-          </div>
-        `;
-      }
+            `;
+        }
     }
-  }
+}
 
-  tarefasAdicionadas();
+tarefasAdicionadas();
+
 
 // atualiza o numero de tarefas criadas
 function atualizarListaDeTarefas() {
     tarefasCriadas.textContent = listaDeTarefas.length;
     tarefasFeitas.textContent = listaDeTarefas.length;
 }
+
 atualizarListaDeTarefas();
+
 
 // atualiza o numero de tarefas completadas
 function atualizarListaDeTarefasFeitas() {
@@ -109,6 +115,7 @@ function removerAnnotation(idQueFoiClicado) {
     atualizarListaDeTarefas();
 }
 
+
 function adicionarTarefa() {
     if (newAnnotation.value == "") {
         return;
@@ -135,6 +142,8 @@ function adicionarTarefa() {
         document.querySelector(".list-empty-container").remove();
     }
 }
+
+adicionarTarefa();
 
 
 // Lista for feita e clicar checkout

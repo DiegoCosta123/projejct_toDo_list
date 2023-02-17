@@ -8,7 +8,7 @@ const textCamp = document.querySelector("item");
 const tasksRegister = document.getElementById("tasks_register");
 const iconRemove = document.getElementById("icon_trash");
 const arrayList = document.getElementsByClassName("annotation_field_container");
-const isdone = document.getElementById("check_concluded");
+const isdone = document.querySelector(".check_concluded");
 
 let listaDeTarefas = JSON.parse(localStorage.getItem("todo-list-diego")) || [];
 
@@ -50,7 +50,6 @@ function generateID() {
 
 function tarefasAdicionadas() {
     // Get the list of tasks from local storage
-
     // Update the list on the page
     taskList.innerHTML = '';
     if (listaDeTarefas) {
@@ -59,10 +58,10 @@ function tarefasAdicionadas() {
             <div class="annotation_field_container">
                 <div class="id${listaDeTarefas[tarefa].id} annotation_field">
                 <div class="check_task_icon_container">
-                    <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded"/>
+                    <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded" />
                 </div>
                 <div class="item_container">
-                    <p class="item">${listaDeTarefas[tarefa].value}</p>
+                    <p class="${listaDeTarefas[tarefa].isDone ? 'item checked' : 'item'}">${listaDeTarefas[tarefa].value}</p>
                 </div>
                 <img onclick="removerAnnotation('${listaDeTarefas[tarefa].id}')" class="icon_trash" src="image/trash.png"/>
                 </div>
@@ -72,6 +71,7 @@ function tarefasAdicionadas() {
     }
 }
 
+
 tarefasAdicionadas();
 
 
@@ -79,6 +79,9 @@ tarefasAdicionadas();
 function atualizarListaDeTarefas() {
     tarefasCriadas.textContent = listaDeTarefas.length;
     tarefasFeitas.textContent = listaDeTarefas.length;
+
+    let listInJSON =  JSON.stringify(listaDeTarefas);
+    localStorage.setItem("todo-list-diego", listInJSON);
 }
 
 atualizarListaDeTarefas();
@@ -94,9 +97,12 @@ function atualizarListaDeTarefasFeitas() {
         }
     }
     tarefasFeitas.textContent = `${isChecked} de ${listaDeTarefas.length}`;
+
+    let listInJSON =  JSON.stringify(listaDeTarefas);
+    localStorage.setItem("todo-list-diego", listInJSON);
 }
 
-atualizarListaDeTarefas();
+atualizarListaDeTarefasFeitas();
 
 
 // Remover da Lista
@@ -136,10 +142,15 @@ function adicionarTarefa() {
     let listInMemoryParsed = JSON.parse(listFromLocalStorage);
     newAnnotation.value = ""
     tarefasAdicionadas();
+
     // conta a quantidade na lista
     atualizarListaDeTarefas();
+
     if (listInMemoryParsed.length == 1) {
         document.querySelector(".list-empty-container").remove();
+
+        let listInJSON =  JSON.stringify(listaDeTarefas);
+        localStorage.setItem("todo-list-diego", listInJSON);
     }
 }
 
@@ -153,29 +164,59 @@ function tarefaFeita(idQueFoiClicado) {
     let isDone = document.querySelector(`.id${idQueFoiClicado} .check_concluded`);
     const checked = document.querySelector(`.id${idQueFoiClicado} .item`);
     const checkContainer = document.querySelector(`.id${idQueFoiClicado} .check_task_icon_container`);
-
+  
     for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
-        if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
-            if (isDone.checked) {
-                checked.classList.add("checked");
-                let checkIcon = document.createElement("img");
-                checkIcon.src = "image/vector.png";
-                checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
-                checkContainer.append(checkIcon);
-                idsDaListaDeTarefas[i].isDone = true;
-            }
-            else {
-                checked.classList.remove("checked");
-                let checkIcon = document.querySelector(`.check_vetor.id${idQueFoiClicado}`);
-                checkIcon.remove(`id${idQueFoiClicado}`);
-                idsDaListaDeTarefas.remove(checked, `check_vetor.id${idQueFoiClicado}`);
-                idsDaListaDeTarefas[i].isDone = false;
-            }
+      if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
+        if (isDone.checked) {
+          checked.classList.add("checked");
+          let checkIcon = document.createElement("img");
+          checkIcon.src = "image/vector.png";
+          checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
+          checkContainer.append(checkIcon);
+          idsDaListaDeTarefas[i].isDone = true;
+          let listInJSON =  JSON.stringify(idsDaListaDeTarefas);
+          localStorage.setItem("todo-list-diego", listInJSON);
+        } 
+        else {
+          checked.classList.remove("checked");
+          let checkIcon = document.querySelector(`.check_vetor.id${idQueFoiClicado}`);
+          checkIcon.remove(`id${idQueFoiClicado}`);
+          idsDaListaDeTarefas[i].isDone = false;
+          let listInJSON =  JSON.stringify(idsDaListaDeTarefas);
+          localStorage.setItem("todo-list-diego", listInJSON);
         }
+      }
+    }
+  
+    atualizarListaDeTarefasFeitas();
+  }
+
+
+function carregarListaDeTarefas() {
+    // Get the list of tasks from localStorage
+    const listaDeTarefasSalva = localStorage.getItem("todo-list-diego");
+    let listaDeTarefas = [];
+
+    if (listaDeTarefasSalva !== null) {
+        listaDeTarefas = JSON.parse(listaDeTarefasSalva);
     }
 
-    atualizarListaDeTarefasFeitas();
+    // Iterate over the list of tasks
+    for (let i = 0; i < listaDeTarefas.length; i++) {
+        let checkIcon = document.createElement("img");
+        if (listaDeTarefas[i].isDone) {
+            // If the task is marked as completed, create a new check icon
+            const checkContainer = document.querySelector(`.id${listaDeTarefas[i].id} .check_task_icon_container`);
+            checkIcon.src = "image/vector.png";
+            checkIcon.classList.add('check_vetor', `id${listaDeTarefas[i].id}`);
+            checkContainer.append(checkIcon);
+        }
+        checkIcon.remove();
+    }
 }
 
-tarefaFeita();
+carregarListaDeTarefas();
+
+// Call the function when the page is loaded
+window.onload = carregarListaDeTarefas;
 

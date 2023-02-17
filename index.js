@@ -167,29 +167,29 @@ function tarefaFeita(idQueFoiClicado) {
   
     for (let i = 0; i < idsDaListaDeTarefas.length; i++) {
       if (idsDaListaDeTarefas[i].id == idQueFoiClicado) {
-        if (isDone.checked) {
-          checked.classList.add("checked");
-          let checkIcon = document.createElement("img");
-          checkIcon.src = "image/vector.png";
-          checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
-          checkContainer.append(checkIcon);
-          idsDaListaDeTarefas[i].isDone = true;
-          let listInJSON =  JSON.stringify(idsDaListaDeTarefas);
-          localStorage.setItem("todo-list-diego", listInJSON);
-        } 
-        else {
-          checked.classList.remove("checked");
-          let checkIcon = document.querySelector(`.check_vetor.id${idQueFoiClicado}`);
-          checkIcon.remove(`id${idQueFoiClicado}`);
-          idsDaListaDeTarefas[i].isDone = false;
-          let listInJSON =  JSON.stringify(idsDaListaDeTarefas);
-          localStorage.setItem("todo-list-diego", listInJSON);
+            if (isDone.checked) {
+                checked.classList.add("checked");
+                let checkIcon = document.createElement("img");
+                checkIcon.src = "image/vector.png";
+                checkIcon.classList.add('check_vetor', `id${idQueFoiClicado}`);
+                checkContainer.append(checkIcon);
+                idsDaListaDeTarefas[i].isDone = true;
+                let listInJSON =  JSON.stringify(idsDaListaDeTarefas);
+                localStorage.setItem("todo-list-diego", listInJSON);
+            } 
+            else {
+                checked.classList.remove("checked");
+                let checkIcon = document.querySelector(`.check_vetor.id${idQueFoiClicado}`);
+                checkIcon.remove(`id${idQueFoiClicado}`);
+                idsDaListaDeTarefas[i].isDone = false;
+                let listInJSON =  JSON.stringify(idsDaListaDeTarefas);
+                localStorage.setItem("todo-list-diego", listInJSON);
+            }
         }
-      }
     }
   
     atualizarListaDeTarefasFeitas();
-  }
+}
 
 
 function carregarListaDeTarefas() {

@@ -121,12 +121,13 @@ function removerAnnotation(idQueFoiClicado) {
     tarefasAdicionadas();
     atualizarListaDeTarefas();
     atualizarListaDeTarefasFeitas();
+    criarListaVazia();
 }
 
 
 // Adicionae Tarefa
 function adicionarTarefa() {
-    if (newAnnotation.value == "") {
+    if (newAnnotation.value.trim() == "") {
         return;
     }
 

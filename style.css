@@ -64,6 +64,11 @@
     width: 80%;
 }
 
+/* #button_click {
+    display: flex;
+    justify-content: center;
+} */
+
 #button_create {
     width: 85px;
     height: 50px;
@@ -239,21 +244,40 @@
 
 @media screen and (max-width: 572px) {
 
+    #project_main {
+        height: 126vh;
+    }
+
     #button_create {
-        display: flex;
+        /* display: flex;
         justify-content: center;
-        align-items: center;
-        margin-left: 50px;
-        margin-top: 20px;
+        align-items: center; */
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        margin-top: 75px;
     }
 
     #information_quantity {
-        margin-top: 145px;
+        margin-top: 175px;
     }
 
     .section_container {
         height: 535px;
     }
     
+}
+
+@media screen and (max-width: 340px) {
+    #information_quantity {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
 }
 

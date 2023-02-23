@@ -120,6 +120,7 @@ function removerAnnotation(idQueFoiClicado) {
 
     tarefasAdicionadas();
     atualizarListaDeTarefas();
+    atualizarListaDeTarefasFeitas();
 }
 
 
@@ -147,6 +148,7 @@ function adicionarTarefa() {
 
     // conta a quantidade na lista
     atualizarListaDeTarefas();
+    atualizarListaDeTarefasFeitas();
 
     if (listInMemoryParsed.length == 1) {
         document.querySelector(".list-empty-container").remove();

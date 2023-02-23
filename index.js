@@ -58,7 +58,8 @@ function tarefasAdicionadas() {
             <div class="annotation_field_container">
                 <div class="id${listaDeTarefas[tarefa].id} annotation_field">
                 <div class="check_task_icon_container">
-                    <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" type="checkbox" name="checkConcluded" class="check_concluded" />
+                    <input onchange="tarefaFeita('${listaDeTarefas[tarefa].id}')" ${listaDeTarefas[tarefa].isDone ? 'checked' : ''} type="checkbox" name="checkConcluded" class="check_concluded" />
+                    ${listaDeTarefas[tarefa].isDone ? '<img src="image/vector.png" class="check_vetor id'+listaDeTarefas[tarefa].id+'">' : ''}
                 </div>
                 <div class="item_container">
                     <p class="${listaDeTarefas[tarefa].isDone ? 'item checked' : 'item'}">${listaDeTarefas[tarefa].value}</p>
@@ -122,6 +123,7 @@ function removerAnnotation(idQueFoiClicado) {
 }
 
 
+// Adicionae Tarefa
 function adicionarTarefa() {
     if (newAnnotation.value == "") {
         return;
